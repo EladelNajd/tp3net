@@ -1,0 +1,46 @@
+﻿@model List<RestoManager_X.Models.RestosModel.Avis>
+@using Microsoft.AspNetCore.Mvc.Rendering
+
+@{
+    ViewData["Title"] = "Avis Pour Un Restaurant";
+}
+
+<h2>Avis Pour Un Restaurant</h2>
+
+<form asp-action="AvisPourUnResto" method="post">
+    <div class="form-group">
+        <label for="codeResto">Choisir un restaurant :</label>
+        <select id="codeResto" name="codeResto" asp-items="ViewBag.CodeResto" class="form-control"></select>
+    </div>
+    <button type="submit" class="btn btn-primary">Afficher les avis</button>
+</form>
+
+@if (Model != null && Model.Count > 0)
+{
+    <h3>Résultats :</h3>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Nom de la personne</th>
+                <th>Note</th>
+                <th>Commentaire</th>
+                <th>Nom du restaurant</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var avis in Model)
+            {
+                <tr>
+                    <td>@avis.NomPersonne</td>
+                    <td>@avis.Note</td>
+                    <td>@avis.Commentaire</td>
+                    <td>@avis.LeResto?.NomResto</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else if (Model != null)
+{
+    <p>Aucun avis trouvé pour ce restaurant.</p>
+}

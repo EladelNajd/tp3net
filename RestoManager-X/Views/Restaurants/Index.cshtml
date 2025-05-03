@@ -1,0 +1,54 @@
+﻿@model IEnumerable<RestoManager_X.Models.RestosModel.Restaurant>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Restaurants</h1>
+
+<!-- Formulaire de filtre -->
+<form asp-action="Index" method="get" class="mb-3">
+    <label for="seuilNoteMoyenneBas">Seuil bas de note moyenne :</label>
+    <input type="number" name="seuilNoteMoyenneBas" id="seuilNoteMoyenneBas" min="0" max="5" step="0.1" class="form-control" />
+
+    <label for="seuilNoteMoyenneHaut">Seuil haut de note moyenne :</label>
+    <input type="number" name="seuilNoteMoyenneHaut" id="seuilNoteMoyenneHaut" min="0" max="5" step="0.1" class="form-control" />
+
+    <br />
+    <button type="submit" class="btn btn-primary">Rechercher</button>
+    <a asp-action="Index" class="btn btn-secondary">Réinitialiser</a>
+</form>
+<p>
+    <a class="btn btn-primary" asp-action="Create">Create New</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.NomResto)</th>
+            <th>@Html.DisplayNameFor(model => model.Specialite)</th>
+            <th>@Html.DisplayNameFor(model => model.Ville)</th>
+            <th>@Html.DisplayNameFor(model => model.Tel)</th>
+            <th>@Html.DisplayNameFor(model => model.Leroprietaire)</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.NomResto)</td>
+                <td>@Html.DisplayFor(modelItem => item.Specialite)</td>
+                <td>@Html.DisplayFor(modelItem => item.Ville)</td>
+                <td>@Html.DisplayFor(modelItem => item.Tel)</td>
+                <td>@Html.DisplayFor(modelItem => item.Leroprietaire.Email)</td>
+                <td>
+                    <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@item.CodeResto">Edit</a>
+                    <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@item.CodeResto">Details</a>
+                    <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@item.CodeResto">Delete</a>
+                    <a class="btn btn-sm btn-secondary" asp-action="Avis" asp-route-id="@item.CodeResto">Avis</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
